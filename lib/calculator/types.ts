@@ -8,6 +8,7 @@ export interface Promotion {
   boost_percentage?: number
   market_restriction?: string
   sport_restriction?: string
+  min_odds?: number
 }
 
 export interface OddsRow {
