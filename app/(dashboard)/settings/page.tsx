@@ -8,19 +8,7 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import { toast } from 'sonner'
-
-const SPORTS = [
-  { key: 'americanfootball_nfl', label: 'NFL' },
-  { key: 'americanfootball_ncaaf', label: 'NCAAF' },
-  { key: 'basketball_nba', label: 'NBA' },
-  { key: 'basketball_ncaab', label: 'NCAAB' },
-  { key: 'baseball_mlb', label: 'MLB' },
-  { key: 'icehockey_nhl', label: 'NHL' },
-  { key: 'soccer_epl', label: 'EPL' },
-  { key: 'soccer_usa_mls', label: 'MLS' },
-  { key: 'tennis_atp_french_open', label: 'Tennis ATP' },
-  { key: 'golf_pga_championship', label: 'Golf PGA' },
-]
+import { SPORTS } from '@/lib/sports'
 
 const SPORTSBOOKS = [
   { key: 'draftkings', label: 'DraftKings' },
