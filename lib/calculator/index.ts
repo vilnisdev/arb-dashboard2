@@ -62,6 +62,9 @@ export function findOpportunities(
       if (h2hOdds.length < 2) continue
       const { event_name, commence_time, sport_key } = eventOdds[0]
 
+      // Sport restriction filter
+      if (promo.sport_restriction && promo.sport_restriction !== sport_key) continue
+
       // Filter sharp books — never appear in bet slip legs
       const bettableOdds = h2hOdds.filter(o => !SHARP_BOOKS.includes(o.bookmaker_key))
       const meta = { promotionId: promo.id, eventId, eventName: event_name, commenceTime: commence_time, sportKey: sport_key }
@@ -75,6 +78,11 @@ export function findOpportunities(
         promoResults = processNoSweat(promo, bettableOdds, fairProbMap, eventId, defaultStake)
       } else if (promo.type === 'odds_boost') {
         promoResults = processOddsBoost(promo, bettableOdds, fairProbMap, eventId, defaultStake)
+      }
+
+      // min_odds applies to leg1 (the promo leg) only — hedge legs may legitimately be at low odds
+      if (promo.min_odds && promo.min_odds > 0) {
+        promoResults = promoResults.filter(r => r.leg1.odds >= promo.min_odds!)
       }
 
       for (const r of promoResults) {
