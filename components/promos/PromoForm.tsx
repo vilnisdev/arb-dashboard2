@@ -6,6 +6,7 @@ import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { toast } from 'sonner'
+import { SPORTS } from '@/lib/sports'
 
 const SPORTSBOOKS = ['draftkings', 'fanduel', 'betmgm', 'caesars', 'pointsbet', 'barstool', 'betrivers', 'bet365', 'fanatics', 'espnbet']
 
@@ -17,6 +18,8 @@ interface PromoInitialData {
   max_bet?: number
   expires_at?: string
   notes?: string
+  sport_restriction?: string
+  min_odds?: number
   [key: string]: unknown
 }
 
@@ -34,6 +37,8 @@ export function PromoForm({ onSuccess, initialData, promoId }: PromoFormProps) {
   const [maxBet, setMaxBet] = useState<string>((initialData?.max_bet as number)?.toString() ?? '')
   const [expiresAt, setExpiresAt] = useState<string>((initialData?.expires_at as string) ?? '')
   const [notes, setNotes] = useState<string>((initialData?.notes as string) ?? '')
+  const [sportRestriction, setSportRestriction] = useState<string>(initialData?.sport_restriction ?? '')
+  const [minOdds, setMinOdds] = useState<string>(initialData?.min_odds?.toString() ?? '')
   const [loading, setLoading] = useState(false)
 
   async function handleSubmit(e: React.FormEvent) {
@@ -47,6 +52,9 @@ export function PromoForm({ onSuccess, initialData, promoId }: PromoFormProps) {
     }
     if (type === 'free_bet' || type === 'no_sweat') body.amount = parseFloat(amount)
     if (type === 'profit_boost') body.boost_percentage = parseFloat(boostPct)
+
+    body.sport_restriction = sportRestriction || null
+    body.min_odds = minOdds ? parseFloat(minOdds) : null
 
     const url = promoId ? `/api/promos/${promoId}` : '/api/promos'
     const method = promoId ? 'PATCH' : 'POST'
@@ -104,6 +112,30 @@ export function PromoForm({ onSuccess, initialData, promoId }: PromoFormProps) {
         <div className="space-y-2">
           <Label>Expires</Label>
           <Input type="datetime-local" value={expiresAt} onChange={e => setExpiresAt(e.target.value)} />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 gap-4">
+        <div className="space-y-2">
+          <Label>Sport (optional)</Label>
+          <Select value={sportRestriction || '__any'} onValueChange={(v) => setSportRestriction(v === '__any' ? '' : v)}>
+            <SelectTrigger><SelectValue placeholder="Any sport" /></SelectTrigger>
+            <SelectContent>
+              <SelectItem value="__any">Any sport</SelectItem>
+              {SPORTS.map(s => <SelectItem key={s.key} value={s.key}>{s.label}</SelectItem>)}
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="space-y-2">
+          <Label>Min Odds (optional)</Label>
+          <Input
+            type="number"
+            min="1.01"
+            step="0.01"
+            placeholder="e.g. 1.91"
+            value={minOdds}
+            onChange={e => setMinOdds(e.target.value)}
+          />
         </div>
       </div>
 
