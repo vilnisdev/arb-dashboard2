@@ -118,7 +118,7 @@ export function PromoForm({ onSuccess, initialData, promoId }: PromoFormProps) {
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
           <Label>Sport (optional)</Label>
-          <Select value={sportRestriction || '__any'} onValueChange={(v) => setSportRestriction(v === '__any' ? '' : v)}>
+          <Select value={sportRestriction || '__any'} onValueChange={(v) => setSportRestriction(v === '__any' ? '' : (v ?? ''))}>
             <SelectTrigger><SelectValue placeholder="Any sport" /></SelectTrigger>
             <SelectContent>
               <SelectItem value="__any">Any sport</SelectItem>
