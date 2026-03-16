@@ -1,1 +1,6 @@
 node_modules
+env
+.env*
+.next/
+tsconfig.tsbuildinfo
+proxy.ts

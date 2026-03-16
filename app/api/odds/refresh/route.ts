@@ -63,7 +63,21 @@ export async function POST() {
   const { events, requestsRemaining, requestsUsed } = oddsData
 
   // Flatten events into odds_cache rows
-  const cacheRows = []
+  const cacheRows: {
+    user_id: string
+    odds_api_event_id: string
+    sport_key: string
+    sport_title: string
+    commence_time: string
+    home_team: string
+    away_team: string
+    bookmaker_key: string
+    market_key: string
+    outcome_name: string
+    price: number
+    point: number | null
+    fetched_at: string
+  }[] = []
   for (const event of events) {
     for (const bookmaker of event.bookmakers) {
       for (const market of bookmaker.markets) {
