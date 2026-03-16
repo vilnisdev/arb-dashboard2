@@ -74,7 +74,7 @@ export function PromoCard({ promo, onEdit, onDeleted }: PromoCardProps) {
       </CardHeader>
       <CardContent className="space-y-2">
         {expiryLabel && (
-          <p className={`text-sm ${isUrgent ? 'text-red-600 font-semibold' : 'text-muted-foreground'}`}>
+          <p className={`text-sm ${isUrgent ? 'text-loss font-semibold' : 'text-muted-foreground'}`}>
             {isUrgent && '🔴 '}Expires in {expiryLabel}
           </p>
         )}
@@ -82,7 +82,7 @@ export function PromoCard({ promo, onEdit, onDeleted }: PromoCardProps) {
         {promo.notes && <p className="text-sm text-muted-foreground">{promo.notes}</p>}
         <div className="flex gap-2 pt-1">
           <Button size="sm" variant="outline" onClick={() => onEdit(promo)}>Edit</Button>
-          <Button size="sm" variant="ghost" className="text-red-600 hover:text-red-700" onClick={handleDelete}>Delete</Button>
+          <Button size="sm" variant="ghost" className="text-loss hover:text-loss/80" onClick={handleDelete}>Delete</Button>
         </div>
       </CardContent>
     </Card>

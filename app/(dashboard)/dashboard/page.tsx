@@ -14,12 +14,12 @@ export default async function DashboardPage() {
 
   return (
     <div className="space-y-8">
-      <div className="bg-white rounded-xl border p-6">
-        <p className="text-sm text-muted-foreground">Lifetime Profit</p>
-        <p className={`text-4xl font-bold ${lifetimeProfit >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-          {lifetimeProfit >= 0 ? '+' : ''}{lifetimeProfit.toFixed(2)}
+      <div className="rounded-xl border border-border bg-gradient-to-br from-card to-secondary p-6">
+        <p className="text-xs font-medium uppercase tracking-widest text-muted-foreground mb-1">Lifetime Profit</p>
+        <p className={`text-5xl font-bold tabular-nums ${lifetimeProfit >= 0 ? 'text-win' : 'text-loss'}`}>
+          {lifetimeProfit >= 0 ? '+' : '-'}${Math.abs(lifetimeProfit).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
         </p>
-        <p className="text-xs text-muted-foreground mt-1">Based on {(bets ?? []).length} settled bets</p>
+        <p className="text-xs text-muted-foreground mt-2">Based on {(bets ?? []).length} settled bets</p>
       </div>
 
       <OpportunityFeed initialOpportunities={(opportunities ?? []) as Parameters<typeof OpportunityFeed>[0]['initialOpportunities']} />
