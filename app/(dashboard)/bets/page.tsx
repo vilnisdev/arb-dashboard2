@@ -41,17 +41,17 @@ export default function BetsPage() {
       <div className="grid grid-cols-3 gap-4">
         <Card><CardContent className="pt-6">
           <p className="text-sm text-muted-foreground">Total P&amp;L</p>
-          <p className={`text-2xl font-bold ${totalPnL >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-            {totalPnL >= 0 ? '+' : ''}{totalPnL.toFixed(2)}
+          <p className={`text-2xl font-bold tabular-nums ${totalPnL >= 0 ? 'text-win' : 'text-loss'}`}>
+            {totalPnL >= 0 ? '+' : '-'}${Math.abs(totalPnL).toFixed(2)}
           </p>
         </CardContent></Card>
         <Card><CardContent className="pt-6">
           <p className="text-sm text-muted-foreground">Wins</p>
-          <p className="text-2xl font-bold text-green-600">{wins}</p>
+          <p className="text-2xl font-bold text-win">{wins}</p>
         </CardContent></Card>
         <Card><CardContent className="pt-6">
           <p className="text-sm text-muted-foreground">Losses</p>
-          <p className="text-2xl font-bold text-red-600">{losses}</p>
+          <p className="text-2xl font-bold text-loss">{losses}</p>
         </CardContent></Card>
       </div>
       <BetTable bets={bets} onSettled={handleSettled} />

@@ -19,10 +19,10 @@ interface Bet {
 }
 
 const STATUS_COLORS: Record<string, string> = {
-  pending: 'bg-yellow-100 text-yellow-800',
-  won: 'bg-green-100 text-green-800',
-  lost: 'bg-red-100 text-red-800',
-  void: 'bg-gray-100 text-gray-800',
+  pending: 'bg-promo/15 text-promo',
+  won: 'bg-win/15 text-win',
+  lost: 'bg-loss/15 text-loss',
+  void: 'bg-muted text-muted-foreground',
 }
 
 interface BetTableProps {
@@ -73,8 +73,8 @@ export function BetTable({ bets, onSettled }: BetTableProps) {
             <TableCell>{bet.outcome}</TableCell>
             <TableCell>{parseFloat(bet.odds as unknown as string).toFixed(3)}</TableCell>
             <TableCell>${parseFloat(bet.stake as unknown as string).toFixed(2)}</TableCell>
-            <TableCell className={bet.profit_loss != null ? (bet.profit_loss >= 0 ? 'text-green-600 font-semibold' : 'text-red-600 font-semibold') : ''}>
-              {bet.profit_loss != null ? `${bet.profit_loss >= 0 ? '+' : ''}${parseFloat(bet.profit_loss as unknown as string).toFixed(2)}` : '—'}
+            <TableCell className={`tabular-nums ${bet.profit_loss != null ? (bet.profit_loss >= 0 ? 'text-win font-semibold' : 'text-loss font-semibold') : ''}`}>
+              {bet.profit_loss != null ? `${bet.profit_loss >= 0 ? '+' : '-'}$${Math.abs(parseFloat(bet.profit_loss as unknown as string)).toFixed(2)}` : '—'}
             </TableCell>
             <TableCell>
               <span className={`text-xs px-2 py-1 rounded-full font-medium ${STATUS_COLORS[bet.status] ?? ''}`}>
@@ -84,8 +84,8 @@ export function BetTable({ bets, onSettled }: BetTableProps) {
             <TableCell>
               {bet.status === 'pending' && (
                 <div className="flex gap-1">
-                  <Button size="sm" variant="outline" className="text-green-600 h-7 text-xs" disabled={settling === bet.id} onClick={() => settle(bet, 'won')}>Won</Button>
-                  <Button size="sm" variant="outline" className="text-red-600 h-7 text-xs" disabled={settling === bet.id} onClick={() => settle(bet, 'lost')}>Lost</Button>
+                  <Button size="sm" variant="outline" className="text-win h-7 text-xs" disabled={settling === bet.id} onClick={() => settle(bet, 'won')}>Won</Button>
+                  <Button size="sm" variant="outline" className="text-loss h-7 text-xs" disabled={settling === bet.id} onClick={() => settle(bet, 'lost')}>Lost</Button>
                 </div>
               )}
             </TableCell>
