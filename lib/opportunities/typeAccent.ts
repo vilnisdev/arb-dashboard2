@@ -14,3 +14,18 @@ export function getTypeBadge(type: string): string {
   if (PROMO_EV_TYPES.has(type)) return 'bg-promo/15 text-promo'
   return 'bg-ev/15 text-ev'
 }
+
+/** Returns per-leg wager type labels for a given opportunity type. */
+export function getLegLabels(type: string): { leg1: string; leg2: string | null } {
+  switch (type) {
+    case 'free_bet_conversion': return { leg1: 'Free Bet Token', leg2: 'Cash Hedge' }
+    case 'profit_boost_arb':    return { leg1: 'Cash (Boosted)', leg2: 'Cash Hedge' }
+    case 'true_arb':            return { leg1: 'Cash',           leg2: 'Cash Hedge' }
+    case 'no_sweat_arb':        return { leg1: 'No Sweat Bet',   leg2: 'Cash Hedge' }
+    case 'free_bet_ev':         return { leg1: 'Free Bet Token', leg2: null }
+    case 'boost_ev':            return { leg1: 'Cash (Boosted)', leg2: null }
+    case 'odds_boost_ev':       return { leg1: 'Cash (Boosted)', leg2: null }
+    case 'line_value':          return { leg1: 'Cash',           leg2: null }
+    default:                    return { leg1: 'Cash',           leg2: null }
+  }
+}
