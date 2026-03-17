@@ -6,7 +6,7 @@ export default async function DashboardPage() {
   const { data: { user } } = await supabase.auth.getUser()
 
   const [{ data: opportunities }, { data: bets }] = await Promise.all([
-    supabase.from('opportunities').select('*, promotions(name, amount)').eq('user_id', user!.id).eq('is_active', true).order('roi_percentage', { ascending: false }),
+    supabase.from('opportunities').select('*, promotions(sportsbook, amount)').eq('user_id', user!.id).eq('is_active', true).order('roi_percentage', { ascending: false }),
     supabase.from('bets').select('profit_loss, status').eq('user_id', user!.id).in('status', ['won', 'lost']),
   ])
 

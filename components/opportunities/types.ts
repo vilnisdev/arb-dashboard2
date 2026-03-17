@@ -15,5 +15,5 @@ export interface Opportunity {
   guaranteed_profit?: number | null
   expected_value?: number | null
   roi_percentage: number
-  promotions?: { name: string; amount: number } | null
+  promotions?: { sportsbook: string; amount: number } | null
 }

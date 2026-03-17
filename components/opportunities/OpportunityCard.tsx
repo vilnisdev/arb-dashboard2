@@ -1,4 +1,5 @@
 'use client'
+import { useState, useEffect } from 'react'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -47,7 +48,10 @@ export function OpportunityCard({ opp, onLogBet }: { opp: Opportunity; onLogBet?
   const evType = isEV(opp.opportunity_type)
   const arbType = isArb(opp.opportunity_type)
   const legLabels = getLegLabels(opp.opportunity_type)
-  const countdown = getCountdown(opp.commence_time)
+  const [countdown, setCountdown] = useState<string | null>(null)
+  useEffect(() => {
+    setCountdown(getCountdown(opp.commence_time))
+  }, [opp.commence_time])
 
   const typeAccent = getTypeAccent(opp.opportunity_type)
   const typeBadge = getTypeBadge(opp.opportunity_type)
@@ -72,7 +76,7 @@ export function OpportunityCard({ opp, onLogBet }: { opp: Opportunity; onLogBet?
       evType && opp.expected_value != null ? `Expected Value: $${opp.expected_value.toFixed(2)}` : '',
       '',
       `${hasTwoLegs ? 'STEP 1' : 'BET'}  ${opp.leg1_bookmaker.toUpperCase()}: ${opp.leg1_outcome} @ ${decimalToAmerican(opp.leg1_odds)} — $${opp.leg1_stake.toFixed(2)}`,
-      hasTwoLegs ? `STEP 2  ${opp.leg2_bookmaker!.toUpperCase()}: ${opp.leg2_outcome} @ ${decimalToAmerican(opp.leg2_odds!)} — $${opp.leg2_stake!.toFixed(2)}` : '',
+      hasTwoLegs ? `STEP 2  ${opp.leg2_bookmaker!.toUpperCase()}: ${opp.leg2_outcome} @ ${decimalToAmerican(opp.leg2_odds ?? 1)} — $${(opp.leg2_stake ?? 0).toFixed(2)}` : '',
     ].filter(Boolean).join('\n')
     copyText(lines, 'Bet slip')
   }
@@ -112,8 +116,8 @@ export function OpportunityCard({ opp, onLogBet }: { opp: Opportunity; onLogBet?
               </span>
               <span className="text-sm font-semibold">{opp.leg1_bookmaker.toUpperCase()}</span>
             </div>
-            {opp.promotions?.name && (
-              <span className="text-xs text-muted-foreground">Using: {opp.promotions.name}</span>
+            {opp.promotions?.sportsbook && (
+              <span className="text-xs text-muted-foreground">Using: {opp.promotions.sportsbook}</span>
             )}
           </div>
           <p className="font-medium">{opp.leg1_outcome}</p>
@@ -146,9 +150,9 @@ export function OpportunityCard({ opp, onLogBet }: { opp: Opportunity; onLogBet?
             <p className="font-medium">{opp.leg2_outcome}</p>
             <div className="flex items-center justify-between">
               <p className="text-sm tabular-nums text-muted-foreground">
-                <strong className="text-foreground">{decimalToAmerican(opp.leg2_odds!)}</strong>
+                <strong className="text-foreground">{decimalToAmerican(opp.leg2_odds ?? 1)}</strong>
                 {' · '}
-                <strong className="text-foreground">${opp.leg2_stake!.toFixed(2)}</strong>
+                <strong className="text-foreground">${(opp.leg2_stake ?? 0).toFixed(2)}</strong>
                 {' · '}
                 {legLabels.leg2}
               </p>
