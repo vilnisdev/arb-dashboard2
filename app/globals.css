@@ -54,47 +54,59 @@
 }
 
 :root {
-  /* Dark slate palette — dark is the default */
-  --background: oklch(0.129 0.042 264.695);   /* slate-950 */
-  --foreground: oklch(0.984 0.003 264.542);    /* slate-50 */
-  --card: oklch(0.208 0.042 265.755);          /* slate-900 */
-  --card-foreground: oklch(0.984 0.003 264.542);
-  --popover: oklch(0.208 0.042 265.755);
-  --popover-foreground: oklch(0.984 0.003 264.542);
-  --primary: oklch(0.696 0.17 162.48);         /* emerald-500 */
-  --primary-foreground: oklch(0.984 0 0);
-  --secondary: oklch(0.279 0.041 264.542);     /* slate-800 */
-  --secondary-foreground: oklch(0.984 0.003 264.542);
-  --muted: oklch(0.279 0.041 264.542);
-  --muted-foreground: oklch(0.704 0.04 264.542); /* slate-400 */
-  --accent: oklch(0.279 0.041 264.542);
-  --accent-foreground: oklch(0.984 0.003 264.542);
-  --destructive: oklch(0.645 0.246 16.439);    /* rose-500 */
-  --border: oklch(0.372 0.044 264.542 / 0.5);  /* slate-700/50 */
-  --input: oklch(0.372 0.044 264.542 / 0.5);
-  --ring: oklch(0.696 0.17 162.48);            /* emerald-500 */
+  /* === Backgrounds (green-hued, cool undertone) === */
+  --background: #0f1117;                /* canvas */
+  --card: #1c1c26;                      /* cards / panels */
+  --card-foreground: #f1f5f9;
+  --popover: #242430;                   /* modals / popovers */
+  --popover-foreground: #f1f5f9;
+  --secondary: #242430;                 /* expanded sections */
+  --secondary-foreground: #f1f5f9;
+  --muted: #242430;
+  --muted-foreground: #94a3b8;          /* secondary text */
+  --accent: #242430;                    /* shadcn hover surface — NOT the brand accent */
+  --accent-foreground: #f1f5f9;
+
+  /* === Text === */
+  --foreground: #f1f5f9;
+
+  /* === Brand / CTA (electric blue) === */
+  --primary: #3b82f6;
+  --primary-foreground: #ffffff;
+  --ring: #3b82f6;
+
+  /* === Borders === */
+  --border: #383850;
+  --input: #383850;
+
+  /* === Destructive === */
+  --destructive: oklch(0.645 0.246 16.439);   /* rose-500 */
+
   --radius: 0.625rem;
-  /* Semantic betting colors */
-  --win: oklch(0.765 0.177 163.223);           /* emerald-400 */
-  --loss: oklch(0.645 0.246 16.439);           /* rose-500 */
-  --ev: oklch(0.746 0.16 232.661);             /* sky-400 */
-  --arb: oklch(0.702 0.183 293.541);           /* violet-400 */
-  --promo: oklch(0.828 0.189 84.429);          /* amber-400 */
-  /* Charts */
+
+  /* === Semantic betting colors === */
+  --win: #34b27b;                       /* Supabase green — positive P&L */
+  --loss: oklch(0.645 0.246 16.439);   /* rose-500 — negative P&L */
+  --ev: #3b82f6;                        /* blue — +EV opportunity type */
+  --arb: #34b27b;                       /* Supabase green — arb type */
+  --promo: oklch(0.828 0.189 84.429);  /* amber-400 — promo type */
+
+  /* === Charts === */
   --chart-1: oklch(0.809 0.105 251.813);
   --chart-2: oklch(0.623 0.214 259.815);
   --chart-3: oklch(0.546 0.245 262.881);
   --chart-4: oklch(0.488 0.243 264.376);
   --chart-5: oklch(0.424 0.199 265.638);
-  /* Sidebar */
-  --sidebar: oklch(0.208 0.042 265.755);
-  --sidebar-foreground: oklch(0.984 0.003 264.542);
-  --sidebar-primary: oklch(0.696 0.17 162.48);
-  --sidebar-primary-foreground: oklch(0.984 0 0);
-  --sidebar-accent: oklch(0.279 0.041 264.542);
-  --sidebar-accent-foreground: oklch(0.984 0.003 264.542);
-  --sidebar-border: oklch(0.372 0.044 264.542 / 0.5);
-  --sidebar-ring: oklch(0.696 0.17 162.48);
+
+  /* === Sidebar === */
+  --sidebar: #161b22;
+  --sidebar-foreground: #f1f5f9;
+  --sidebar-primary: #3b82f6;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #242430;
+  --sidebar-accent-foreground: #f1f5f9;
+  --sidebar-border: #383850;
+  --sidebar-ring: #3b82f6;
 }
 
 @layer base {
