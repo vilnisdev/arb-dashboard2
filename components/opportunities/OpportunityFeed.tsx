@@ -1,5 +1,5 @@
 'use client'
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { OpportunityCard } from './OpportunityCard'
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
@@ -64,6 +64,12 @@ export function OpportunityFeed({ initialOpportunities }: Props) {
       setLoading(false)
     }
   }, [])
+
+  useEffect(() => {
+    refresh()
+    const interval = setInterval(refresh, 5 * 60 * 1000)
+    return () => clearInterval(interval)
+  }, [refresh])
 
   const filtered = filterByTab(opportunities, activeTab)
   const counts = {
