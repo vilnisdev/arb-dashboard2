@@ -67,8 +67,6 @@ export function OpportunityFeed({ initialOpportunities }: Props) {
 
   useEffect(() => {
     refresh()
-    const interval = setInterval(refresh, 5 * 60 * 1000)
-    return () => clearInterval(interval)
   }, [refresh])
 
   const filtered = filterByTab(opportunities, activeTab)
