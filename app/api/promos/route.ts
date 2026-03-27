@@ -6,6 +6,14 @@ export async function GET() {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
+  // Auto-expire any promos whose expiry date has passed
+  await supabase
+    .from('promotions')
+    .update({ status: 'expired' })
+    .eq('user_id', user.id)
+    .in('status', ['available', 'pending'])
+    .lt('expires_at', new Date().toISOString())
+
   const { data } = await supabase
     .from('promotions')
     .select('*')
