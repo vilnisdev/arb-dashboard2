@@ -20,9 +20,17 @@ export default function LoginPage() {
     e.preventDefault()
     setLoading(true)
     const { error } = await supabase.auth.signInWithPassword({ email, password })
+    if (error) { setLoading(false); toast.error(error.message); return }
+    const { data: settings } = await supabase
+      .from('user_settings')
+      .select('onboarding_completed')
+      .single()
     setLoading(false)
-    if (error) { toast.error(error.message); return }
-    router.push('/dashboard')
+    if (!settings?.onboarding_completed) {
+      router.push('/onboarding')
+    } else {
+      router.push('/dashboard')
+    }
     router.refresh()
   }
 
